@@ -1,0 +1,29 @@
+FROM debian:jessie
+MAINTAINER Raphael Catolino "raphael.catolino@gmail.com"
+
+# Add node sources
+RUN echo 'deb http://deb.nodesource.com/node_5.x jessie main' > /etc/apt/sources.list.d/node.list
+COPY nodesource.gpg.key ./nodesource.gpg.key
+COPY start.sh ./start.sh
+RUN apt-key add nodesource.gpg.key
+
+# Install dependencies
+RUN export DEBIAN_FRONTEND=noninteractive && \
+  apt-get -qy update && apt-get -qy install \
+  build-essential \
+  git \
+  libicu-dev \
+  nodejs \
+  python
+
+# Install the bridge
+RUN npm install matrix-appservice-irc --global
+
+RUN chmod +x ./start.sh
+
+# The configuration will live in /data/irc
+VOLUME ["/data"]
+
+EXPOSE 5487
+CMD ["start"]
+ENTRYPOINT ["/start.sh"]

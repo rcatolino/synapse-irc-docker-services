@@ -1,0 +1,28 @@
+version: '2.1'
+
+services:
+  synapse:
+    image: silviof/docker-matrix
+    expose:
+      - "8008"
+    ports:
+      - "8448:8448"
+    restart: on-failure:3
+    stop_grace_period: 2s
+    volumes:
+      - /data:/data
+
+  irc:
+    build: ./appservice-irc
+    depends_on:
+      synapse:
+        condition: service_started
+
+    image: matrix-appservice-irc
+    expose:
+      - "5487"
+    restart: on-failure:3
+    stop_grace_period: 2s
+    volumes:
+      - /data:/data
+
