@@ -9,6 +9,11 @@ services:
       - "8448:8448"
     restart: on-failure:3
     stop_grace_period: 2s
+    healthcheck:
+      test: ["CMD-SHELL", "ss -tlpn | grep 8008"]
+      interval: 2s
+      timeout: 5s
+      retries: 3
     volumes:
       - /data:/data
 
@@ -16,7 +21,7 @@ services:
     build: ./appservice-irc
     depends_on:
       synapse:
-        condition: service_started
+        condition: service_healthy
 
     image: matrix-appservice-irc
     expose:
