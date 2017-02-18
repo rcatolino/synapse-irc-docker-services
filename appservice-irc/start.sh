@@ -24,7 +24,7 @@ case "${1}" in
       then
         genpkey -out /data/irc/passkey.pem -outform PEM -algorithm RSA -pkeyopt rsa_keygen_bits:2048
       fi
-      ${node_modules}/bin/matrix-appservice-irc --generate-registration -u 'http://irc:5487' -c /data/irc/config.yaml -f /data/irc/registration.yaml
+      ${module_path}/bin/matrix-appservice-irc --generate-registration -u 'http://irc:5487' -c /data/irc/config.yaml -f /data/irc/registration.yaml
       echo "Registration complete, please update your homeserver config file to point to the registration.yaml"
     ;;
 
