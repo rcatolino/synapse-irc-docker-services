@@ -6,7 +6,7 @@ services:
     expose:
       - "8008"
     ports:
-      - "8448:8448"
+      - "9388:8448"
     restart: on-failure:3
     stop_grace_period: 2s
     healthcheck:
