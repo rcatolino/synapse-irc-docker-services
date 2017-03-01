@@ -26,7 +26,8 @@ USER ircbridge
 RUN npm install matrix-appservice-irc
 
 # The configuration will live in /data/irc
-VOLUME ["/data"]
+VOLUME ["/data/irc"]
+VOLUME ["/data/shared"]
 
 EXPOSE 5487
 ENTRYPOINT ["/var/lib/ircbridge/start.sh"]

@@ -15,7 +15,9 @@ services:
       timeout: 5s
       retries: 3
     volumes:
-      - /data:/data
+      - /data/synapse:/data
+      - /data/ssl:/ssl
+      - /data/shared:/shared
 
   irc:
     build: ./appservice-irc
@@ -29,5 +31,6 @@ services:
     restart: on-failure:3
     stop_grace_period: 2s
     volumes:
-      - /data:/data
+      - /data/shared:/shared
+      - /data/irc:/data
 
